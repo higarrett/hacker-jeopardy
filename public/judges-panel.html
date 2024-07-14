@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Judges Panel</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Judges Panel</h1>
+  <div class="score-controls">
+    <div class="team-controls">
+      <h3>Team 1</h3>
+      <button onclick="updateScore('team1', 1000)">+1000</button>
+      <button onclick="updateScore('team1', -1000)">-1000</button>
+      <input type="number" id="team1-custom">
+      <button onclick="customScore('team1')">Set Custom Score</button>
+      <button onclick="clearScore('team1')">Clear Score</button>
+    </div>
+    <div class="team-controls">
+      <h3>Team 2</h3>
+      <button onclick="updateScore('team2', 1000)">+1000</button>
+      <button onclick="updateScore('team2', -1000)">-1000</button>
+      <input type="number" id="team2-custom">
+      <button onclick="customScore('team2')">Set Custom Score</button>
+      <button onclick="clearScore('team2')">Clear Score</button>
+    </div>
+    <div class="team-controls">
+      <h3>Team 3</h3>
+      <button onclick="updateScore('team3', 1000)">+1000</button>
+      <button onclick="updateScore('team3', -1000)">-1000</button>
+      <input type="number" id="team3-custom">
+      <button onclick="customScore('team3')">Set Custom Score</button>
+      <button onclick="clearScore('team3')">Clear Score</button>
+    </div>
+  </div>
+  <br>
+  <div id="buzzer-status"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/judges.js"></script>
+  <button onclick="clearBuzzer()">Clear Buzzer</button>
+  <div class="question-controls">
+    <h2>Question Controls</h2>
+    <div class="category-title">Category 1</div>
+    <button onclick="openQuestion('cat1-1000')">1000</button>
+    <button onclick="openQuestion('cat1-2000')">2000</button>
+    <button onclick="openQuestion('cat1-3000')">3000</button>
+    <button onclick="openQuestion('cat1-4000')">4000</button>
+    <button onclick="openQuestion('cat1-5000')">5000</button>
+    <div class="category-title">Category 2</div>
+    <button onclick="openQuestion('cat2-1000')">1000</button>
+    <button onclick="openQuestion('cat2-2000')">2000</button>
+    <button onclick="openQuestion('cat2-3000')">3000</button>
+    <button onclick="openQuestion('cat2-4000')">4000</button>
+    <button onclick="openQuestion('cat2-5000')">5000</button>
+    <div class="category-title">Category 3</div>
+    <button onclick="openQuestion('cat3-1000')">1000</button>
+    <button onclick="openQuestion('cat3-2000')">2000</button>
+    <button onclick="openQuestion('cat3-3000')">3000</button>
+    <button onclick="openQuestion('cat3-4000')">4000</button>
+    <button onclick="openQuestion('cat3-5000')">5000</button>
+    <div class="category-title">Category 4</div>
+    <button onclick="openQuestion('cat4-1000')">1000</button>
+    <button onclick="openQuestion('cat4-2000')">2000</button>
+    <button onclick="openQuestion('cat4-3000')">3000</button>
+    <button onclick="openQuestion('cat4-4000')">4000</button>
+    <button onclick="openQuestion('cat4-5000')">5000</button>
+    <div class="category-title">Category 5</div>
+    <button onclick="openQuestion('cat5-1000')">1000</button>
+    <button onclick="openQuestion('cat5-2000')">2000</button>
+    <button onclick="openQuestion('cat5-3000')">3000</button>
+    <button onclick="openQuestion('cat5-4000')">4000</button>
+    <button onclick="openQuestion('cat5-5000')">5000</button>
+  </div>
+  <div id="answer-display" style="display:none;">
+    <h2>Answer</h2>
+    <div id="answer-content"></div>
+    <button onclick="closeQuestion()">Close Question</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/judges.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team 2 Buzzer</title>
+  <style>
+    @font-face {
+      font-family: 'Korinna';
+      src: url('fonts/KorinnaStd-Regular.woff2') format('woff2'),
+           url('fonts/KorinnaStd-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'Korinna', Arial, sans-serif;
+      text-align: center;
+      background-color: #00008b;
+      color: yellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .buzzer {
+      background-color: #1e90ff;
+      color: yellow;
+      padding: 20px 40px;
+      font-size: 2em;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    .buzzer:hover {
+      background-color: #104e8b;
+    }
+  </style>
+</head>
+<body>
+  <button class= "buzzer" id="buzzer">Buzz!</button>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    document.getElementById('buzzer').addEventListener('click', () => {
+      socket.emit('buzz', 'Team 2');
+    });
+  </script>
+</body>
+</html>

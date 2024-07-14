@@ -1,0 +1,133 @@
+@font-face {
+  font-family: 'Korinna';
+  src: url('/fonts/korinna.woff2') format('woff2'),
+       url('/fonts/korinna.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Korinna', Arial, sans-serif;
+  text-align: center;
+  background-color: #00008b;
+  color: white;
+}
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+.team {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+.team-score {
+  font-size: 2em;
+  font-weight: bold;
+  background-color: #1e90ff;
+  padding: 10px;
+  border-radius: 5px;
+}
+.buzzer-status {
+  font-size: 1.5em;
+  margin: 20px 0;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.cell {
+  background-color: #1e90ff;
+  padding: 20px;
+  font-size: 1.5em;
+  color: yellow;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cell:hover {
+  background-color: #104e8b;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  text-align: center;
+}
+.close-button {
+  background-color: #1e90ff;
+  color: yellow;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.close-button:hover {
+  background-color: #104e8b;
+}
+.category-title {
+  background-color: #1e90ff;
+  padding: 10px;
+  font-size: 1.5em;
+  color: yellow;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Other existing styles... */
+
+#question-modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 3em; /* Default size */
+  text-align: center;
+  z-index: 1000;
+}
+
+#question-content {
+  margin: 20px;
+}
+
+/* Example responsive adjustments */
+@media (max-width: 1200px) {
+  #question-modal {
+    font-size: 2.5em;
+  }
+}
+
+@media (max-width: 800px) {
+  #question-modal {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 500px) {
+  #question-modal {
+    font-size: 1.5em;
+  }
+}
+
