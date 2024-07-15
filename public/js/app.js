@@ -1,54 +1,34 @@
 const socket = io();
 
-function openQuestion(questionId) {
-  socket.emit('open-question', questionId);
-}
-
 socket.on('update', (data) => {
-  document.getElementById('team1-score').textContent = `Team 1: ${data.scores.team1}`;
-  document.getElementById('team2-score').textContent = `Team 2: ${data.scores.team2}`;
-  document.getElementById('team3-score').textContent = `Team 3: ${data.scores.team3}`;
-  document.getElementById('buzzer-status').textContent = data.currentBuzzer ? `${data.currentBuzzer}!` : '';
+  document.getElementById('team1-score').innerText = data.scores.team1;
+  document.getElementById('team2-score').innerText = data.scores.team2;
+  document.getElementById('team3-score').innerText = data.scores.team3;
+  document.getElementById('buzzer-status').innerText = data.currentBuzzer ? `${data.currentBuzzer} buzzed!` : '';
 });
 
-socket.on('show-question', (questionData) => {
-  const { questionId, question } = questionData;
+socket.on('show-question', (data) => {
   const questionModal = document.getElementById('question-modal');
   const questionContent = document.getElementById('question-content');
-  
-  questionModal.style.display = 'flex';
-  questionContent.textContent = question;
-
-  /*
-  if (dailyDouble) {
-    // Highlight the question as a Daily Double
-    questionContent.innerHTML = `<span style="color: yellow;">Daily Double!</span><br>${question}`;
-    // Prompt for a wager
-    const wager = prompt("This is a Daily Double! Enter your wager:");
-    socket.emit('daily-double-wager', { questionId, wager });
-  }
-  */
-  // Adjust font size based on the length of the question
-  if (question.length > 100) {
-    questionModal.style.fontSize = '2em';
-  } else if (question.length > 50) {
-    questionModal.style.fontSize = '2.5em';
-  } else {
-    questionModal.style.fontSize = '3em';
-  }
-
-  document.getElementById(questionId).style.visibility = 'hidden';
+  questionContent.innerHTML = `<h1>${data.question}</h1>`;
+  questionModal.style.display = 'block';
 });
 
-socket.on('daily-double', (questionId) => {
-  const wager = prompt("This is a Daily Double! Enter your wager:");
-  socket.emit('daily-double-wager', { questionId, wager });
+socket.on('show-answer', (answer) => {
+  document.getElementById('answer-content').innerText = answer;
+});
+
+socket.on('clear-question', () => {
+  document.getElementById('question-modal').style.display = 'none';
 });
 
 socket.on('question-opened', (questionId) => {
   document.getElementById(questionId).style.visibility = 'hidden';
 });
 
-socket.on('clear-question', () => {
-  document.getElementById('question-modal').style.display = 'none';
+socket.on('daily-double', (questionId) => {
+  const wager = prompt('Daily Double! Enter your wager:');
+  if (wager != null) {
+    socket.emit('daily-double-wager', { questionId, wager: parseInt(wager, 10) });
+  }
 });
