@@ -26,9 +26,10 @@ socket.on('question-opened', (questionId) => {
   document.getElementById(questionId).style.visibility = 'hidden';
 });
 
-socket.on('daily-double', (questionId) => {
-  const wager = prompt('Daily Double! Enter your wager:');
-  if (wager != null) {
-    socket.emit('daily-double-wager', { questionId, wager: parseInt(wager, 10) });
-  }
+socket.on('show-daily-double-banner', () => {
+  const banner = document.getElementById('daily-double-banner');
+  banner.style.display = 'block';
+  setTimeout(() => {
+    banner.style.display = 'none';
+  }, 3000); // 3 seconds delay for the banner
 });
