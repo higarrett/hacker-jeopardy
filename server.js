@@ -102,6 +102,11 @@ io.on('connection', (socket) => {
     io.emit('question-opened', data.questionId); // Notify all clients to hide the question
   });
 
+  socket.on('close-question', () => {
+    io.emit('clear-question');
+  });
+});
+
  
 server.listen(3000, () => {
   console.log('Server is running on port 3000');
