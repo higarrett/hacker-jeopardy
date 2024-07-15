@@ -74,7 +74,12 @@ io.on('connection', (socket) => {
   socket.on('open-question', (questionId) => {
     const questionData = questions[questionId];
     if (questionData.dailyDouble) {
-      socket.emit('daily-double', questionId);
+      io.emit('show-daily-double-banner');
+      setTimeout(() => {
+        io.emit('show-question', { questionId, question: questionData.question });
+        socket.emit('show-answer', questionData.answer);
+        io.emit('question-opened', questionId); // Notify all clients to hide the question
+      }, 3000); // 3 seconds delay for the banner
     } else {
       io.emit('show-question', { questionId, question: questionData.question });
       socket.emit('show-answer', questionData.answer);
