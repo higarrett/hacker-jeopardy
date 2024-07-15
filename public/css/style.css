@@ -49,6 +49,20 @@ body {
 .cell:hover {
   background-color: #104e8b;
 }
+
+.banner {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: yellow;
+  border: 5px solid black;
+  padding: 20px;
+  font-size: 2em;
+  text-align: center;
+  z-index: 1000;
+}
 .modal {
   display: none;
   position: fixed;
@@ -60,6 +74,13 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+#question-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
 }
 .modal-content {
   background: white;
