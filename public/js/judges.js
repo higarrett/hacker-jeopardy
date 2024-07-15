@@ -62,10 +62,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
-socket.on('daily-double', (questionId) => {
-  const wager = prompt('Daily Double! Enter your wager:');
-  if (wager != null) {
-    socket.emit('daily-double-wager', { questionId, wager: parseInt(wager, 10) });
-  }
-});
