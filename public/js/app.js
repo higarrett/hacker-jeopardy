@@ -19,6 +19,7 @@ socket.on('show-question', (questionData) => {
   questionModal.style.display = 'flex';
   questionContent.textContent = question;
 
+  /*
   if (dailyDouble) {
     // Highlight the question as a Daily Double
     questionContent.innerHTML = `<span style="color: yellow;">Daily Double!</span><br>${question}`;
@@ -26,7 +27,7 @@ socket.on('show-question', (questionData) => {
     const wager = prompt("This is a Daily Double! Enter your wager:");
     socket.emit('daily-double-wager', { questionId, wager });
   }
-  
+  */
   // Adjust font size based on the length of the question
   if (question.length > 100) {
     questionModal.style.fontSize = '2em';
@@ -39,6 +40,14 @@ socket.on('show-question', (questionData) => {
   document.getElementById(questionId).style.visibility = 'hidden';
 });
 
+socket.on('daily-double', (questionId) => {
+  const wager = prompt("This is a Daily Double! Enter your wager:");
+  socket.emit('daily-double-wager', { questionId, wager });
+});
+
+socket.on('question-opened', (questionId) => {
+  document.getElementById(questionId).style.visibility = 'hidden';
+});
 
 socket.on('clear-question', () => {
   document.getElementById('question-modal').style.display = 'none';
