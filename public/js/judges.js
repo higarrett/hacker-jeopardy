@@ -9,10 +9,9 @@ function clearScore(team) {
 }
 
 function customScore(team) {
-  const score = document.getElementById(`${team}-custom`).value;
-  if (score !== '') {
-    socket.emit('set-custom-score', { team, points: parseInt(score) });
-  }
+  const customScoreInput = document.getElementById(`${team}-custom`);
+  const points = parseInt(customScoreInput.value);
+  socket.emit('set-custom-score', { team, points });
 }
 
 function openQuestion(questionId) {
@@ -50,4 +49,8 @@ socket.on('show-question', (questionData) => {
 socket.on('clear-question', () => {
   document.getElementById('answer-display').style.display = 'none';
   document.getElementById('daily-double-wager').style.display = 'none';
+});
+
+socket.on('question-opened', (questionId) => {
+  document.getElementById(questionId).style.visibility = 'hidden';
 });
