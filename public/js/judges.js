@@ -32,6 +32,22 @@ socket.on('update', (data) => {
 });
 
 socket.on('show-answer', (answer) => {
-  document.getElementById('answer-display').style.display = 'block';
-  document.getElementById('answer-content').textContent = answer;
+  const answerDisplay = document.getElementById('answer-display');
+  const answerContent = document.getElementById('answer-content');
+  answerContent.textContent = answer;
+  answerDisplay.style.display = 'block';
+});
+
+socket.on('show-question', (questionData) => {
+  if (questionData.dailyDouble) {
+    const wagerDisplay = document.getElementById('daily-double-wager');
+    const wagerContent = document.getElementById('wager-content');
+    wagerContent.textContent = `Wager: ${dailyDoubleWagers[questionData.questionId] || 0}`;
+    wagerDisplay.style.display = 'block';
+  }
+});
+
+socket.on('clear-question', () => {
+  document.getElementById('answer-display').style.display = 'none';
+  document.getElementById('daily-double-wager').style.display = 'none';
 });
