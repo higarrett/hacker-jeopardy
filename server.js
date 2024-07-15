@@ -50,6 +50,7 @@ const questions = {
   'cat5-5000': { question: 'RBAC', answer: 'Answer: Role-Based Access Control', dailyDouble: false }
 };
 
+let currentBuzzer = null;
 const dailyDoubleWagers = {};
 
 io.on('connection', (socket) => {
@@ -72,12 +73,13 @@ io.on('connection', (socket) => {
 
   socket.on('open-question', (questionId) => {
     const questionData = questions[questionId];
-    io.emit('show-question', { questionId, question: questionData.question, dailyDouble: questionData.dailyDouble });
-    socket.emit('show-answer', questionData.answer);
-  });
-
-  socket.on('close-question', () => {
-    io.emit('clear-question');
+    if (questionData.dailyDouble) {
+      socket.emit('daily-double', questionId);
+    } else {
+      io.emit('show-question', { questionId, question: questionData.question });
+      socket.emit('show-answer', questionData.answer);
+      io.emit('question-opened', questionId); // Notify all clients to hide the question
+    }
   });
 
   socket.on('buzz', (team) => {
@@ -94,53 +96,13 @@ io.on('connection', (socket) => {
 
   socket.on('daily-double-wager', (data) => {
     dailyDoubleWagers[data.questionId] = data.wager;
-  });
-});
-
-
-let currentBuzzer = null;
-
-io.on('connection', (socket) => {
-  socket.emit('update', { scores, currentBuzzer });
-
-  socket.on('update-score', (data) => {
-    scores[data.team] += data.points;
-    io.emit('update', { scores, currentBuzzer });
-  });
-
-  socket.on('clear-score', (team) => {
-    scores[team] = 0;
-    io.emit('update', { scores, currentBuzzer });
-  });
-
-  socket.on('set-custom-score', (data) => {
-    scores[data.team] = data.points;
-    io.emit('update', { scores, currentBuzzer });
-  });
-
-  socket.on('open-question', (questionId) => {
-    const questionData = questions[questionId];
-    io.emit('show-question', { questionId, question: questionData.question });
+    const questionData = questions[data.questionId];
+    io.emit('show-question', { questionId: data.questionId, question: questionData.question });
     socket.emit('show-answer', questionData.answer);
+    io.emit('question-opened', data.questionId); // Notify all clients to hide the question
   });
 
-  socket.on('close-question', () => {
-    io.emit('clear-question');
-  });
-
-  socket.on('buzz', (team) => {
-    if (!currentBuzzer) { // Only register the first buzzer
-      currentBuzzer = team;
-      io.emit('update', { scores, currentBuzzer });
-    }
-  });
-
-  socket.on('clear-buzzer', () => {
-    currentBuzzer = null;
-    io.emit('update', { scores, currentBuzzer });
-  });
-});
-
+ 
 server.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
