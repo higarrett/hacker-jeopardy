@@ -54,3 +54,18 @@ socket.on('clear-question', () => {
 socket.on('question-opened', (questionId) => {
   document.getElementById(questionId).style.visibility = 'hidden';
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.question-button').forEach(button => {
+    button.addEventListener('click', () => {
+      openQuestion(button.id);
+    });
+  });
+});
+
+socket.on('daily-double', (questionId) => {
+  const wager = prompt('Daily Double! Enter your wager:');
+  if (wager != null) {
+    socket.emit('daily-double-wager', { questionId, wager: parseInt(wager, 10) });
+  }
+});
